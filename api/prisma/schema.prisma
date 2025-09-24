@@ -1,0 +1,42 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum InterviewStatus {
+  APPROVED
+  PENDING
+  REJECTED
+
+  @@map("interview_status")
+}
+
+model User {
+  id        String      @id @default(uuid()) @db.Uuid
+  name      String
+  email     String      @unique
+  password  String
+  createdAt DateTime    @default(now())
+  Interview Interview[]
+
+  @@map("users")
+}
+
+model Interview {
+  id          String          @id @default(uuid()) @db.Uuid
+  userId      String          @map("user_id") @db.Uuid
+  companyName String          @map("company_name")
+  role        String
+  appliedAt   DateTime        @map("applied_at")
+  salary      Float?
+  status      InterviewStatus
+  description String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("interviews")
+}

@@ -5,8 +5,11 @@ import { ValidationPipe } from "@nestjs/common";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  SetupSwagger(app);
+
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalGuards();
+
+  SetupSwagger(app);
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

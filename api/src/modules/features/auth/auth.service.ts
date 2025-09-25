@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { UsersRepository } from "src/shared/repositories/users.repository";
 import { IAuthService } from "./interfaces/auth.service.interface";
 import { SigninDto } from "./dto/signin.dto";
@@ -32,8 +32,22 @@ export class AuthService implements IAuthService {
     return { accessToken };
   }
 
-  signin(signinDto: SigninDto): Promise<{ accessToken: string }> {
-    return signinDto as any;
+  async signin(signinDto: SigninDto): Promise<{ accessToken: string }> {
+    const { email, password } = signinDto;
+
+    const user = await this.usersRepository.findUnique({ where: { email } });
+    if (!user) {
+      throw new UnauthorizedException("Invalid credentials");
+    }
+
+    const isPasswordValid = await this.bcryptService.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new UnauthorizedException("Invalid credentials");
+    }
+
+    const accessToken = await this.generateAccessToken(user.id);
+
+    return { accessToken };
   }
 
   private generateAccessToken(userId: string) {

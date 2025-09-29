@@ -1,8 +1,10 @@
-import { Controller, Post, Body, Get, Query } from "@nestjs/common";
+import { Controller, Post, Body, Get, Query, Put, Param, ParseUUIDPipe, Patch, Delete, HttpCode } from "@nestjs/common";
 import { InterviewsService } from "./interviews.service";
 import { CreateInterviewDto } from "./dto/create-interview.dto";
 import { UserId } from "src/shared/decorators/user-id.decorator";
 import { FilterInterviewDto } from "./dto/filter-interview.dto";
+import { UpdateInterviewDto } from "./dto/update-interview.dto";
+import { UpdateInterviewStatusDto } from "./dto/update-interview-status.dto";
 
 @Controller("interviews")
 export class InterviewsController {
@@ -16,5 +18,34 @@ export class InterviewsController {
   @Get()
   findAllByUserId(@UserId() userId: string, @Query() filters: FilterInterviewDto) {
     return this.interviewsService.findAllByUserId(userId, filters);
+  }
+
+  @Get("summary")
+  getInterviewsSummaryByUserId(@UserId() userId: string) {
+    return this.interviewsService.getInterviewsSummaryByUserId(userId);
+  }
+
+  @Put(":interviewId")
+  update(
+    @UserId() userId: string,
+    @Param("interviewId", ParseUUIDPipe) interviewId: string,
+    @Body() updateInterviewDto: UpdateInterviewDto,
+  ) {
+    return this.interviewsService.update(userId, interviewId, updateInterviewDto);
+  }
+
+  @Patch(":interviewId/status")
+  updateStatus(
+    @UserId() userId: string,
+    @Param("interviewId", ParseUUIDPipe) interviewId: string,
+    @Body() updateInterviewStatusDto: UpdateInterviewStatusDto,
+  ) {
+    return this.interviewsService.updateStatus(userId, interviewId, updateInterviewStatusDto);
+  }
+
+  @Delete(":interviewId")
+  @HttpCode(204)
+  delete(@UserId() userId: string, @Param("interviewId", ParseUUIDPipe) interviewId: string) {
+    return this.interviewsService.delete(userId, interviewId);
   }
 }

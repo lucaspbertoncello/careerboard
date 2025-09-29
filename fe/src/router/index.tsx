@@ -1,6 +1,6 @@
 import { AuthLayout } from "@/views/layouts/auth-layout";
-import { Login } from "@/views/pages/auth/Login";
-import { Register } from "@/views/pages/auth/Register";
+import { Login } from "@/views/pages/auth/login";
+import { Register } from "@/views/pages/auth/register";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 export function Router() {

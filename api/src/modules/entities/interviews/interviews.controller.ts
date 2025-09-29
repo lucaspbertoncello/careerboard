@@ -5,7 +5,10 @@ import { UserId } from "src/shared/decorators/user-id.decorator";
 import { FilterInterviewDto } from "./dto/filter-interview.dto";
 import { UpdateInterviewDto } from "./dto/update-interview.dto";
 import { UpdateInterviewStatusDto } from "./dto/update-interview-status.dto";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
+@ApiTags("interviews")
+@ApiBearerAuth()
 @Controller("interviews")
 export class InterviewsController {
   constructor(private readonly interviewsService: InterviewsService) {}

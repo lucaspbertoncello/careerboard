@@ -1,3 +1,4 @@
+import { useAuth } from "@/app/hooks/use-auth";
 import { useLogin } from "@/app/hooks/use-login";
 import { getErrorMessage } from "@/app/utils/get-error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,12 +29,13 @@ export function useLoginForm() {
   });
 
   const { isPending, mutateAsync } = useLogin();
+  const { signin } = useAuth();
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
-      await mutateAsync(data);
+      const { accessToken } = await mutateAsync(data);
+      signin(accessToken);
       toast.success("Login sucessfully!");
-      // do the auth logic
     } catch (error) {
       toast.error(getErrorMessage(error));
     }

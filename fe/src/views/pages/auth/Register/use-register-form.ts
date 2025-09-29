@@ -4,6 +4,7 @@ import z from "zod";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "@/app/utils/get-error-message";
 import { useRegister } from "@/app/hooks/use-register";
+import { useAuth } from "@/app/hooks/use-auth";
 
 const schema = z.object({
   name: z.string().nonempty("Full name is required"),
@@ -29,12 +30,13 @@ export function useRegisterForm() {
   });
 
   const { mutateAsync, isPending } = useRegister();
+  const { signin } = useAuth();
 
   const handleSubmit = hookFormSubmit(async (data) => {
     try {
-      await mutateAsync(data);
+      const { accessToken } = await mutateAsync(data);
+      signin(accessToken);
       toast.success("Account created successfuly");
-      // do the auth logic
     } catch (error) {
       toast.error(getErrorMessage(error));
     }

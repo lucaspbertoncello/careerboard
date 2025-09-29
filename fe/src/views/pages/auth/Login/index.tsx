@@ -1,10 +1,13 @@
 import { Button } from "@/views/components/button";
 import { Input } from "@/views/components/input";
 import { Link } from "react-router-dom";
+import { useLoginForm } from "./use-login-form";
 
 export function Login() {
+  const { register, handleSubmit, errors, isPending } = useLoginForm();
+
   return (
-    <form className="w-[400px]">
+    <form onSubmit={handleSubmit} className="w-[400px]">
       <div className="mb-4">
         <h1 className="text-secondary-foreground text-3xl font-semibold">
           Log in into your account
@@ -19,11 +22,24 @@ export function Login() {
       </div>
 
       <div className="flex flex-col gap-2">
-        <Input placeholder="E-mail" type="email" />
-        <Input placeholder="Password" type="password" />
+        <Input
+          placeholder="E-mail"
+          type="email"
+          {...register("email")}
+          error={errors.email?.message}
+        />
+
+        <Input
+          placeholder="Password"
+          type="password"
+          {...register("password")}
+          error={errors.password?.message}
+        />
       </div>
 
-      <Button className="mt-6">Log in</Button>
+      <Button isLoading={isPending} className="mt-6">
+        Log in
+      </Button>
     </form>
   );
 }

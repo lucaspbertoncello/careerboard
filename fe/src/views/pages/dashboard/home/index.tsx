@@ -12,7 +12,7 @@ export function Home() {
       />
 
       {/* summary */}
-      <div className="mt-6 mb-4 flex gap-4">
+      <div className="mt-6 mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <SummaryCard title="Total interviews" data={128} percentage={12.5} />
         <SummaryCard title="Accepted interviews" data={32} percentage={12.5} />
         <SummaryCard title="Pending interviews" data={45} percentage={12.5} />

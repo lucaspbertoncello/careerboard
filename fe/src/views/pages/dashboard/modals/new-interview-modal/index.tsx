@@ -23,10 +23,17 @@ import { Calendar } from "@/views/components/calendar";
 import { CalendarIcon } from "lucide-react";
 import { useNewInterviewModalController } from "./use-new-interview-modal-controller";
 import { InputCurrency } from "@/views/components/input-currency";
+import { useNewInterviewModalForm } from "./use-new-interview-modal-form";
+import { Controller } from "react-hook-form";
+import { formatDate } from "@/app/utils/formatDate";
+import { Textarea } from "@/views/components/textarea";
 
 export function NewInterviewModal() {
   const { isNewInterviewModalOpen, closeNewInterviewModal } =
     useNewInterviewModalController();
+
+  const { handleSubmit, register, errors, control } =
+    useNewInterviewModalForm();
 
   return (
     <Dialog
@@ -43,7 +50,7 @@ export function NewInterviewModal() {
           </DialogDescription>
         </DialogHeader>
 
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Company Name */}
           <div className="space-y-2">
             <label htmlFor="companyName" className="text-sm font-medium">
@@ -52,70 +59,110 @@ export function NewInterviewModal() {
 
             <Input
               id="companyName"
+              {...register("companyName")}
               placeholder="e.g. Google, Microsoft, Apple"
+              error={errors.companyName?.message}
             />
           </div>
 
           {/* Role */}
           <div className="space-y-2">
             <label htmlFor="role" className="text-sm font-medium">
-              Position *
+              Role *
             </label>
 
             <Input
               id="role"
               placeholder="e.g. Frontend Developer, Product Manager"
+              {...register("role")}
+              error={errors.role?.message}
             />
           </div>
 
           {/* Salary */}
           <div className="space-y-2">
             <label htmlFor="salary" className="text-sm font-medium">
-              Salary (Optional)
+              Salary
             </label>
 
-            {/* <Input id="salary" type="number" placeholder="e.g. 75000" /> */}
-            <InputCurrency />
+            <Controller
+              control={control}
+              name="salary"
+              render={({ field: { onChange, value } }) => (
+                <InputCurrency
+                  onChange={onChange}
+                  value={value}
+                  error={errors.salary?.message}
+                />
+              )}
+            />
           </div>
 
           {/* Status */}
+          {/* refactor shitty code */}
           <div className="space-y-2">
             <label htmlFor="status" className="text-sm font-medium">
               Status *
             </label>
 
-            <Select>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select status" />
-              </SelectTrigger>
+            <Controller
+              control={control}
+              name="status"
+              render={({ field: { value, onChange } }) => (
+                <div>
+                  <Select value={value} onValueChange={onChange}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
 
-              <SelectContent>
-                <SelectItem value="PENDING">Pending</SelectItem>
-                <SelectItem value="APPROVED">Approved</SelectItem>
-                <SelectItem value="REJECTED">Rejected</SelectItem>
-              </SelectContent>
-            </Select>
+                    <SelectContent>
+                      <SelectItem value="PENDING">Pending</SelectItem>
+                      <SelectItem value="APPROVED">Approved</SelectItem>
+                      <SelectItem value="REJECTED">Rejected</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  {errors.status?.message && (
+                    <span className="text-xs text-red-400">
+                      {errors.status.message}
+                    </span>
+                  )}
+                </div>
+              )}
+            />
           </div>
 
           {/* Applied Date */}
+          {/* refactor shitty code */}
           <div className="space-y-2">
             <label className="text-sm font-medium">Applied Date *</label>
 
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start text-left font-normal"
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  Pick a date
-                </Button>
-              </PopoverTrigger>
+            <Controller
+              control={control}
+              name="appliedAt"
+              defaultValue={new Date()}
+              render={({ field: { value, onChange } }) => (
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start text-left font-normal"
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {value ? formatDate(new Date(value)) : "Pick a date"}
+                    </Button>
+                  </PopoverTrigger>
 
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar mode="single" />
-              </PopoverContent>
-            </Popover>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      selected={value ? new Date(value) : undefined}
+                      onSelect={onChange}
+                      mode="single"
+                    />
+                  </PopoverContent>
+                </Popover>
+              )}
+            />
           </div>
 
           {/* Description */}
@@ -124,10 +171,9 @@ export function NewInterviewModal() {
               Description (Optional)
             </label>
 
-            <textarea
-              id="description"
-              placeholder="Job description, requirements, notes..."
-              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring min-h-20 w-full resize-none rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+            <Textarea
+              {...register("description")}
+              error={errors.description?.message}
             />
           </div>
 

@@ -1,5 +1,6 @@
 import { PageHeader } from "@/views/components/page-header";
 import { SummaryCard } from "./components/summary-card";
+import { SummaryChart } from "./components/summary-chart";
 
 export function Home() {
   return (
@@ -20,8 +21,10 @@ export function Home() {
       {/* last 3 months chart */}
       <div className="card">
         <h1 className="mb-4 font-semibold">
-          Total interviews for the last 3 months
+          Total interviews for the last year
         </h1>
+
+        <SummaryChart />
       </div>
     </section>
   );

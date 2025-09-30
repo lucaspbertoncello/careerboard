@@ -23,6 +23,7 @@ import { Button } from "@/views/components/button";
 import { Separator } from "../components/separator";
 import { useAuth } from "@/app/hooks/use-auth";
 import { Fab } from "../components/fab";
+import { NewInterviewModal } from "../pages/dashboard/modals/new-interview-modal";
 
 const dashboardMenuItens = [
   {
@@ -93,6 +94,7 @@ export function DashboardLayout() {
           </div>
 
           <Outlet />
+          <NewInterviewModal />
           <Fab />
         </main>
       </div>

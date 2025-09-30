@@ -11,6 +11,7 @@ import { Plus, Search } from "lucide-react";
 import { InterviewCard } from "./components/interview-card";
 import type { IInterview } from "@/app/entities/Interview";
 import { Button } from "@/views/components/button";
+import { useInterviewsController } from "./use-interviews-controller";
 
 // replace with use-interviews hook
 const mockInterviews: IInterview[] = [
@@ -67,6 +68,8 @@ const mockInterviews: IInterview[] = [
 ];
 
 export function Interviews() {
+  const { openNewInterviewModal } = useInterviewsController();
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -75,7 +78,7 @@ export function Interviews() {
           description="View and organize your interview history, upcoming sessions and results"
         />
 
-        <Button className="h-10 w-[200px]">
+        <Button onClick={openNewInterviewModal} className="h-10 w-[200px]">
           <Plus />
           Add an interview
         </Button>

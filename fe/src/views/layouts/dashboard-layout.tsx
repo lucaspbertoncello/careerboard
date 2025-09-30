@@ -85,7 +85,7 @@ export function DashboardLayout() {
       </Sidebar>
 
       <div className="size-full overflow-auto p-4">
-        <main className="bg-background w-full rounded-lg border border-none p-8 shadow-lg shadow-black/5">
+        <main className="bg-background min-h-full w-full rounded-lg border border-none p-8 shadow-lg shadow-black/5">
           <div className="mb-4 space-y-2">
             <SidebarTrigger />
             <Separator />

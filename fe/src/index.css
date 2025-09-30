@@ -163,16 +163,18 @@
 }
 
 @layer base {
-  button {
-    @apply cursor-pointer;
-  }
-}
-
-@layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
   }
+
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+.card {
+  @apply w-full rounded-lg border p-4 shadow-md shadow-black/5;
 }

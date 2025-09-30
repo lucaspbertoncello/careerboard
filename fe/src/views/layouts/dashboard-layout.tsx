@@ -49,8 +49,8 @@ export function DashboardLayout() {
   return (
     <SidebarProvider className="h-full">
       <Sidebar className="bg-sidebar" variant="inset">
-        <SidebarContent className="flex h-full justify-center p-4">
-          <SidebarMenu className="flex flex-col items-center gap-8">
+        <SidebarContent className="flex h-full justify-center">
+          <SidebarMenu className="flex flex-col items-center justify-center gap-8">
             {dashboardMenuItens.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.url;

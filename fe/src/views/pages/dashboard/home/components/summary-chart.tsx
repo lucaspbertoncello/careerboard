@@ -44,7 +44,9 @@ const chartConfig = {
 
 export function SummaryChart() {
   return (
-    <div>
+    <div className="card mb-4">
+      <h1 className="mb-4 font-semibold">Total interviews for the last year</h1>
+
       <ChartContainer config={chartConfig} className="h-[300px] w-full">
         <AreaChart
           accessibilityLayer

@@ -1,6 +1,7 @@
 import { PageHeader } from "@/views/components/page-header";
 import { SummaryCard } from "./components/summary-card";
 import { SummaryChart } from "./components/summary-chart";
+import { SummaryLastInterviews } from "./components/summary-last-interviews";
 
 export function Home() {
   return (
@@ -11,21 +12,18 @@ export function Home() {
       />
 
       {/* summary */}
-      <div className="my-6 flex gap-4">
+      <div className="mt-6 mb-4 flex gap-4">
         <SummaryCard title="Total interviews" data={128} percentage={12.5} />
         <SummaryCard title="Accepted interviews" data={32} percentage={12.5} />
         <SummaryCard title="Pending interviews" data={45} percentage={12.5} />
         <SummaryCard title="Rejected interviews" data={51} percentage={12.5} />
       </div>
 
-      {/* last 3 months chart */}
-      <div className="card">
-        <h1 className="mb-4 font-semibold">
-          Total interviews for the last year
-        </h1>
+      {/* last 1 year chart */}
+      <SummaryChart />
 
-        <SummaryChart />
-      </div>
+      {/* last 3 interviews */}
+      <SummaryLastInterviews />
     </section>
   );
 }

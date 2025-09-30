@@ -22,6 +22,7 @@ import { cn } from "@/app/lib/cn";
 import { Button } from "@/views/components/button";
 import { Separator } from "../components/separator";
 import { useAuth } from "@/app/hooks/use-auth";
+import { Fab } from "../components/fab";
 
 const dashboardMenuItens = [
   {
@@ -85,13 +86,14 @@ export function DashboardLayout() {
       </Sidebar>
 
       <div className="size-full overflow-auto p-4">
-        <main className="bg-background min-h-full w-full rounded-lg border border-none p-8 shadow-lg shadow-black/5">
+        <main className="bg-background relative min-h-full w-full rounded-lg border border-none p-8 shadow-lg shadow-black/5">
           <div className="mb-4 space-y-2">
             <SidebarTrigger />
             <Separator />
           </div>
 
           <Outlet />
+          <Fab />
         </main>
       </div>
     </SidebarProvider>

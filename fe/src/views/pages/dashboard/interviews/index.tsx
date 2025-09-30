@@ -7,9 +7,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/views/components/select";
-import { Search } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { InterviewCard } from "./components/interview-card";
 import type { IInterview } from "@/app/entities/Interview";
+import { Button } from "@/views/components/button";
 
 // replace with use-interviews hook
 const mockInterviews: IInterview[] = [
@@ -68,10 +69,17 @@ const mockInterviews: IInterview[] = [
 export function Interviews() {
   return (
     <div>
-      <PageHeader
-        title="Interviews"
-        description="View and organize your interview history, upcoming sessions and results"
-      />
+      <div className="flex items-center justify-between">
+        <PageHeader
+          title="Interviews"
+          description="View and organize your interview history, upcoming sessions and results"
+        />
+
+        <Button className="h-10 w-[200px]">
+          <Plus />
+          Add an interview
+        </Button>
+      </div>
 
       {/* filters */}
       <div className="mt-6 mb-4 flex items-center gap-4">

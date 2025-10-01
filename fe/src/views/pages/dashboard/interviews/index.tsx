@@ -6,68 +6,19 @@ import type { Interview } from "@/app/entities/Interview";
 import { Button } from "@/views/components/button";
 import { useInterviewsController } from "./use-interviews-controller";
 import { SelectInput } from "@/views/components/select-input";
+import { InterviewsEmptyState } from "./components/interviews-empty-state";
+import { InterviewsErrorState } from "./components/interviews-error-state";
 
-// replace with use-interviews hook
-const mockInterviews: Interview[] = [
-  {
-    id: "1",
-    userId: "3",
-    companyName: "TechCorp Inc.",
-    role: "Senior Frontend Developer",
-    salary: 102500,
-    description:
-      "Looking for an experienced React developer to join our frontend team. Must have experience with TypeScript, Next.js, and modern development practices.",
-    status: "APPROVED",
-    appliedAt: "Applied Dec 10, 2024",
-  },
-  {
-    id: "2",
-    userId: "3",
-    companyName: "StartupXYZ",
-    role: "Full Stack Engineer",
-    salary: 82500,
-    description:
-      "Join our fast-growing startup as a full-stack engineer. Work with cutting-edge technologies including React, Node.js, and AWS cloud services.",
-    status: "PENDING",
-    appliedAt: "Applied Dec 8, 2024",
-  },
-  {
-    id: "3",
-    userId: "3",
-    companyName: "BigTech Solutions",
-    role: "React Developer",
-    salary: 110000,
-    description:
-      "We're seeking a passionate React developer to build scalable web applications. Experience with Redux, GraphQL, and testing frameworks required.",
-    status: "REJECTED",
-    appliedAt: "Applied Dec 5, 2024",
-  },
-  {
-    id: "4",
-    userId: "3",
-    companyName: "Innovation Labs",
-    role: "Frontend Architect",
-    salary: 130000,
-    description:
-      "Lead our frontend architecture initiatives. Design and implement scalable frontend solutions for enterprise applications.",
-    status: "APPROVED",
-    appliedAt: "Applied Dec 2, 2024",
-  },
-  {
-    id: "5",
-    userId: "3",
-    companyName: "Digital Agency",
-    role: "UI/UX Developer",
-    salary: 75000,
-    description:
-      "Combine your development skills with design expertise. Work closely with designers to create beautiful and functional user interfaces.",
-    status: "PENDING",
-    appliedAt: "Applied Nov 28, 2024",
-  },
-];
+// TODO: replace those values w use-interviews hook return
+const interviews: Interview[] = [];
+const error = false;
 
 export function Interviews() {
   const { openNewInterviewModal } = useInterviewsController();
+
+  const handleRetry = () => {
+    // TODO: add refetch logic when integrating use-intervies hook
+  };
 
   return (
     <div>
@@ -83,28 +34,40 @@ export function Interviews() {
         </Button>
       </div>
 
-      {/* filters */}
-      <div className="mt-6 mb-4 flex items-center gap-4">
-        <div className="relative flex-1">
-          <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
-          <Input
-            placeholder="Search companies or positions..."
-            className="pl-10"
-          />
+      {interviews.length > 0 && !error && (
+        <div>
+          {/* filters */}
+          <div className="mt-6 mb-4 flex items-center gap-4">
+            <div className="relative flex-1">
+              <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
+              <Input
+                placeholder="Search companies or positions..."
+                className="pl-10"
+              />
+            </div>
+
+            <SelectInput
+              data={["APPROVED", "PENDING", "REJECTED"]}
+              triggerPlaceholder="All statuses"
+            />
+          </div>
+
+          {/* interviews */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {interviews.map((interview) => (
+              <InterviewCard key={interview.id} data={interview} />
+            ))}
+          </div>
         </div>
+      )}
 
-        <SelectInput
-          data={["APPROVED", "PENDING", "REJECTED"]}
-          triggerPlaceholder="All statuses"
+      {interviews.length === 0 && !error && <InterviewsEmptyState />}
+      {error && (
+        <InterviewsErrorState
+          onRetry={handleRetry}
+          errorMessage="Failed to load interviews. Please try again."
         />
-      </div>
-
-      {/* interviews */}
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {mockInterviews.map((interview) => (
-          <InterviewCard key={interview.id} data={interview} />
-        ))}
-      </div>
+      )}
     </div>
   );
 }

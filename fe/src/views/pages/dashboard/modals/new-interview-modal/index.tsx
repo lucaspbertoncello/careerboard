@@ -5,22 +5,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/views/components/dialog";
+
 import { Input } from "@/views/components/input";
 import { Button } from "@/views/components/button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/views/components/popover";
-import { Calendar } from "@/views/components/calendar";
-import { CalendarIcon } from "lucide-react";
 import { useNewInterviewModalController } from "./use-new-interview-modal-controller";
 import { InputCurrency } from "@/views/components/input-currency";
 import { useNewInterviewModalForm } from "./use-new-interview-modal-form";
 import { Controller } from "react-hook-form";
-import { formatDate } from "@/app/utils/formatDate";
 import { Textarea } from "@/views/components/textarea";
 import { SelectInput } from "@/views/components/select-input";
+import { DatePickerInput } from "@/views/components/date-picker-input";
 
 export function NewInterviewModal() {
   const { isNewInterviewModalOpen, closeNewInterviewModal } =
@@ -123,25 +117,11 @@ export function NewInterviewModal() {
               name="appliedAt"
               defaultValue={new Date()}
               render={({ field: { value, onChange } }) => (
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button
-                      variant="outline"
-                      className="w-full justify-start text-left font-normal"
-                    >
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {value ? formatDate(new Date(value)) : "Pick a date"}
-                    </Button>
-                  </PopoverTrigger>
-
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      selected={value ? new Date(value) : undefined}
-                      onSelect={onChange}
-                      mode="single"
-                    />
-                  </PopoverContent>
-                </Popover>
+                <DatePickerInput
+                  value={value}
+                  onChange={onChange}
+                  error={errors.appliedAt?.message}
+                />
               )}
             />
           </div>

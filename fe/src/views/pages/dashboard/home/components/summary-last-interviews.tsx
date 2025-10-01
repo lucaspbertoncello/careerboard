@@ -1,3 +1,5 @@
+import type { Interview } from "@/app/entities/Interview";
+import { capitalizeFirstLetter } from "@/app/utils/capitalize-first-letter";
 import {
   Table,
   TableBody,
@@ -7,35 +9,13 @@ import {
   TableRow,
 } from "@/views/components/table";
 
-// replace with interview-summary hook and receive via prop
-const lastInterviews = [
-  {
-    id: 1,
-    companyName: "TechCorp",
-    role: "Senior Frontend Developer",
-    appliedAt: "2025-09-28",
-    salary: 8.0,
-    status: "Pending",
-  },
-  {
-    id: 2,
-    companyName: "StartupXYZ",
-    role: "Full Stack Engineer",
-    appliedAt: "2025-09-25",
-    salary: 8.0,
-    status: "Approved",
-  },
-  {
-    id: 3,
-    companyName: "BigTech Inc",
-    role: "React Developer",
-    appliedAt: "2025-09-22",
-    salary: 8.0,
-    status: "Rejected",
-  },
-];
+interface SummaryLastInterviewsProps {
+  lastInterviews: Interview[];
+}
 
-export function SummaryLastInterviews() {
+export function SummaryLastInterviews({
+  lastInterviews,
+}: SummaryLastInterviewsProps) {
   return (
     <div className="card">
       <h1 className="mb-4 font-semibold">Your last 3 interviews</h1>
@@ -69,14 +49,14 @@ export function SummaryLastInterviews() {
               <TableCell>
                 <span
                   className={`inline-flex w-[70px] cursor-pointer items-center justify-center rounded-full py-1 text-xs font-medium ${
-                    interview.status === "Approved"
+                    interview.status === "APPROVED"
                       ? "bg-green-100 text-green-800"
-                      : interview.status === "Pending"
+                      : interview.status === "PENDING"
                         ? "bg-yellow-100 text-yellow-800"
                         : "bg-red-100 text-red-800"
                   }`}
                 >
-                  {interview.status}
+                  {capitalizeFirstLetter(interview.status)}
                 </span>
               </TableCell>
             </TableRow>

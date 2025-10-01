@@ -1,11 +1,11 @@
+import type { LoginUserDto } from "@/app/entities/User";
 import { authService } from "@/app/services/auth-service";
-import type { ISignupParams } from "@/app/services/auth-service/signup";
 import { useMutation } from "@tanstack/react-query";
 
-export function useRegister() {
+export function useLogin() {
   const { isPending, mutateAsync } = useMutation({
-    mutationKey: ["signup"],
-    mutationFn: (data: ISignupParams) => authService.signup(data),
+    mutationKey: ["signin"],
+    mutationFn: (data: LoginUserDto) => authService.signin(data),
   });
 
   return { isPending, mutateAsync };

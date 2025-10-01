@@ -1,4 +1,4 @@
-import { useAuth } from "@/app/hooks/use-auth";
+import { useAuth } from "@/app/hooks/auth/use-auth";
 import { Navigate, Outlet } from "react-router-dom";
 
 export function AuthGuard({ isPrivate = true }: { isPrivate?: boolean }) {

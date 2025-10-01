@@ -1,5 +1,5 @@
-import { useAuth } from "@/app/hooks/use-auth";
-import { useLogin } from "@/app/hooks/use-login";
+import { useAuth } from "@/app/hooks/auth/use-auth";
+import { useLogin } from "@/app/hooks/auth/use-login";
 import { getErrorMessage } from "@/app/utils/get-error-message";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

@@ -3,8 +3,8 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import toast from "react-hot-toast";
 import { getErrorMessage } from "@/app/utils/get-error-message";
-import { useRegister } from "@/app/hooks/use-register";
-import { useAuth } from "@/app/hooks/use-auth";
+import { useAuth } from "@/app/hooks/auth/use-auth";
+import { useRegister } from "@/app/hooks/auth/use-register";
 
 const schema = z.object({
   name: z.string().nonempty("Full name is required"),

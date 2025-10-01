@@ -21,9 +21,9 @@ import {
 import { cn } from "@/app/lib/cn";
 import { Button } from "@/views/components/button";
 import { Separator } from "../components/separator";
-import { useAuth } from "@/app/hooks/use-auth";
 import { Fab } from "../components/fab";
 import { NewInterviewModal } from "../pages/dashboard/modals/new-interview-modal";
+import { useAuth } from "@/app/hooks/auth/use-auth";
 
 const dashboardMenuItens = [
   {

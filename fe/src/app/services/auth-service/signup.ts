@@ -1,12 +1,7 @@
+import type { CreateUserDto } from "@/app/entities/User";
 import { httpClient } from "../http-client";
 
-export interface ISignupParams {
-  name: string;
-  email: string;
-  password: string;
-}
-
-export async function signup(params: ISignupParams) {
+export async function signup(params: CreateUserDto) {
   const { data } = await httpClient.post<{ accessToken: string }>(
     "auth/signup",
     params,

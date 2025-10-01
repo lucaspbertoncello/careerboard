@@ -1,9 +1,9 @@
-import type { IInterview } from "@/app/entities/Interview";
+import type { Interview } from "@/app/entities/Interview";
 import { capitalizeFirstLetter } from "@/app/utils/capitalize-first-letter";
 import { Calendar, DollarSign, Building2 } from "lucide-react";
 
 interface IInterviewCard {
-  data: IInterview;
+  data: Interview;
 }
 
 export function InterviewCard({ data }: IInterviewCard) {

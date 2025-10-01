@@ -7,7 +7,7 @@ export interface Interview {
   role: string;
   appliedAt: string;
   salary?: number;
-  status: "APPROVED" | "PENDING" | "REJECTED";
+  status: InterviewStatus;
   description?: string;
 }
 

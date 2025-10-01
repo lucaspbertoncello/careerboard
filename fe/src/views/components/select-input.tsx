@@ -12,8 +12,8 @@ interface ISelectInputProps {
   error?: string;
   triggerPlaceholder: string;
   data: string[];
-  value: string;
-  onChange(): void;
+  value?: string;
+  onChange?(): void;
 }
 
 export function SelectInput({

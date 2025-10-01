@@ -1,22 +1,17 @@
 import { Input } from "@/views/components/input";
 import { PageHeader } from "@/views/components/page-header";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/views/components/select";
 import { Plus, Search } from "lucide-react";
 import { InterviewCard } from "./components/interview-card";
-import type { IInterview } from "@/app/entities/Interview";
+import type { Interview } from "@/app/entities/Interview";
 import { Button } from "@/views/components/button";
 import { useInterviewsController } from "./use-interviews-controller";
+import { SelectInput } from "@/views/components/select-input";
 
 // replace with use-interviews hook
-const mockInterviews: IInterview[] = [
+const mockInterviews: Interview[] = [
   {
     id: "1",
+    userId: "3",
     companyName: "TechCorp Inc.",
     role: "Senior Frontend Developer",
     salary: 102500,
@@ -27,6 +22,7 @@ const mockInterviews: IInterview[] = [
   },
   {
     id: "2",
+    userId: "3",
     companyName: "StartupXYZ",
     role: "Full Stack Engineer",
     salary: 82500,
@@ -37,6 +33,7 @@ const mockInterviews: IInterview[] = [
   },
   {
     id: "3",
+    userId: "3",
     companyName: "BigTech Solutions",
     role: "React Developer",
     salary: 110000,
@@ -47,6 +44,7 @@ const mockInterviews: IInterview[] = [
   },
   {
     id: "4",
+    userId: "3",
     companyName: "Innovation Labs",
     role: "Frontend Architect",
     salary: 130000,
@@ -57,6 +55,7 @@ const mockInterviews: IInterview[] = [
   },
   {
     id: "5",
+    userId: "3",
     companyName: "Digital Agency",
     role: "UI/UX Developer",
     salary: 75000,
@@ -94,17 +93,10 @@ export function Interviews() {
           />
         </div>
 
-        <Select>
-          <SelectTrigger className="w-36">
-            <SelectValue placeholder="All statuses" />
-          </SelectTrigger>
-
-          <SelectContent>
-            <SelectItem value="APPROVED">Approved</SelectItem>
-            <SelectItem value="PENDING">Pending</SelectItem>
-            <SelectItem value="REJECTED">Rejected</SelectItem>
-          </SelectContent>
-        </Select>
+        <SelectInput
+          data={["APPROVED", "PENDING", "REJECTED"]}
+          triggerPlaceholder="All statuses"
+        />
       </div>
 
       {/* interviews */}

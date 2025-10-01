@@ -1,5 +1,6 @@
 import { NumericFormat } from "react-number-format";
 import { cn } from "@/app/lib/cn";
+import { Error } from "./error";
 
 interface IInputCurrencyProps {
   onChange(value: string): void;
@@ -29,7 +30,7 @@ export function InputCurrency({
         )}
       />
 
-      {error && <span className="text-xs text-red-400">{error}</span>}
+      <Error hasError={error} />
     </div>
   );
 }

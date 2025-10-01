@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/app/lib/cn";
+import { Error } from "./error";
 
 interface IInputProps extends React.ComponentProps<"input"> {
   error?: string;
@@ -8,7 +9,7 @@ interface IInputProps extends React.ComponentProps<"input"> {
 
 function Input({ className, type, error, ...props }: IInputProps) {
   return (
-    <>
+    <div>
       <input
         type={type}
         data-slot="input"
@@ -21,8 +22,8 @@ function Input({ className, type, error, ...props }: IInputProps) {
         {...props}
       />
 
-      {error && <span className="text-xs text-red-400">{error}</span>}
-    </>
+      <Error hasError={error} />
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import { cn } from "@/app/lib/cn";
+import { Error } from "./error";
 
 interface ITextArea extends React.ComponentProps<"textarea"> {
   error?: string;
@@ -18,7 +19,7 @@ function Textarea({ className, error, ...props }: ITextArea) {
         {...props}
       />
 
-      {error && <span className="text-xs text-red-400">{error}</span>}
+      <Error hasError={error} />
     </div>
   );
 }

@@ -22,20 +22,21 @@ export function Interviews() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
-        <PageHeader
-          title="Interviews"
-          description="View and organize your interview history, upcoming sessions and results"
-        />
-
-        <Button onClick={openNewInterviewModal} className="h-10 w-[200px]">
-          <Plus />
-          Add an interview
-        </Button>
-      </div>
-
       {interviews.length > 0 && !error && (
         <div>
+          {/* header */}
+          <div className="flex items-center justify-between">
+            <PageHeader
+              title="Interviews"
+              description="View and organize your interview history, upcoming sessions and results"
+            />
+
+            <Button onClick={openNewInterviewModal} className="h-10 w-[200px]">
+              <Plus />
+              Add an interview
+            </Button>
+          </div>
+
           {/* filters */}
           <div className="mt-6 mb-4 flex items-center gap-4">
             <div className="relative flex-1">

@@ -2,9 +2,12 @@ import { PageHeader } from "@/views/components/page-header";
 import { SummaryCard } from "./components/summary-card";
 import { SummaryChart } from "./components/summary-chart";
 import { SummaryLastInterviews } from "./components/summary-last-interviews";
+import { HomeErrorState } from "./components/home-error-state";
+import { HomeEmptyState } from "./components/home-empty-state";
+import { useDashboard } from "@/app/hooks/use-dashboard";
 import type { Interview } from "@/app/entities/Interview";
 
-// TODO: replace with use-interviews-summary hook
+// TODO: replace those 3 values with use-interviews-summary hook return
 const chartData = [
   { month: "Jan", total: 18, approved: 4, rejected: 11, pending: 3 },
   { month: "Feb", total: 24, approved: 6, rejected: 15, pending: 3 },
@@ -19,7 +22,6 @@ const chartData = [
   { month: "Nov", total: 39, approved: 10, rejected: 24, pending: 5 },
   { month: "Dec", total: 44, approved: 11, rejected: 26, pending: 7 },
 ];
-
 const lastInterviews: Interview[] = [
   {
     id: "1",
@@ -49,28 +51,63 @@ const lastInterviews: Interview[] = [
     status: "REJECTED",
   },
 ];
+const error = false;
+
+const hasInterviewsData = false;
 
 export function Home() {
+  const { openNewInterviewModal } = useDashboard();
+
+  const handleRetry = () => {
+    // TODO: add refetch logic when integrating use-interviews-summary hook
+  };
+
   return (
     <section>
-      <PageHeader
-        title="Home"
-        description="Track your interview progress and performance metrics"
-      />
+      {error && <HomeErrorState onRetry={handleRetry} />}
 
-      {/* summary */}
-      <div className="mt-6 mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <SummaryCard title="Total interviews" data={128} percentage={12.5} />
-        <SummaryCard title="Accepted interviews" data={32} percentage={12.5} />
-        <SummaryCard title="Pending interviews" data={45} percentage={12.5} />
-        <SummaryCard title="Rejected interviews" data={51} percentage={12.5} />
-      </div>
+      {!error && hasInterviewsData && (
+        <div>
+          <PageHeader
+            title="Home"
+            description="Track your interview progress and performance metrics"
+          />
 
-      {/* last 1 year chart */}
-      <SummaryChart chartData={chartData} />
+          {/* summary */}
+          <div className="mt-6 mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <SummaryCard
+              title="Total interviews"
+              data={128}
+              percentage={12.5}
+            />
+            <SummaryCard
+              title="Accepted interviews"
+              data={32}
+              percentage={12.5}
+            />
+            <SummaryCard
+              title="Pending interviews"
+              data={45}
+              percentage={12.5}
+            />
+            <SummaryCard
+              title="Rejected interviews"
+              data={51}
+              percentage={12.5}
+            />
+          </div>
 
-      {/* last 3 interviews */}
-      <SummaryLastInterviews lastInterviews={lastInterviews} />
+          {/* last 1 year chart */}
+          <SummaryChart chartData={chartData} />
+
+          {/* last 3 interviews */}
+          <SummaryLastInterviews lastInterviews={lastInterviews} />
+        </div>
+      )}
+
+      {!error && !hasInterviewsData && (
+        <HomeEmptyState onCreateInterview={openNewInterviewModal} />
+      )}
     </section>
   );
 }

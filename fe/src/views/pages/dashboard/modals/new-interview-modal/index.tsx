@@ -8,13 +8,6 @@ import {
 import { Input } from "@/views/components/input";
 import { Button } from "@/views/components/button";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/views/components/select";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -27,6 +20,7 @@ import { useNewInterviewModalForm } from "./use-new-interview-modal-form";
 import { Controller } from "react-hook-form";
 import { formatDate } from "@/app/utils/formatDate";
 import { Textarea } from "@/views/components/textarea";
+import { SelectInput } from "@/views/components/select-input";
 
 export function NewInterviewModal() {
   const { isNewInterviewModalOpen, closeNewInterviewModal } =
@@ -99,7 +93,6 @@ export function NewInterviewModal() {
           </div>
 
           {/* Status */}
-          {/* refactor shitty code */}
           <div className="space-y-2">
             <label htmlFor="status" className="text-sm font-medium">
               Status *
@@ -109,25 +102,13 @@ export function NewInterviewModal() {
               control={control}
               name="status"
               render={({ field: { value, onChange } }) => (
-                <div>
-                  <Select value={value} onValueChange={onChange}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select status" />
-                    </SelectTrigger>
-
-                    <SelectContent>
-                      <SelectItem value="PENDING">Pending</SelectItem>
-                      <SelectItem value="APPROVED">Approved</SelectItem>
-                      <SelectItem value="REJECTED">Rejected</SelectItem>
-                    </SelectContent>
-                  </Select>
-
-                  {errors.status?.message && (
-                    <span className="text-xs text-red-400">
-                      {errors.status.message}
-                    </span>
-                  )}
-                </div>
+                <SelectInput
+                  triggerPlaceholder="Choose an status"
+                  data={["APPROVED", "PENDING", "REJECTED"]}
+                  error={errors.status?.message}
+                  onChange={onChange}
+                  value={value}
+                />
               )}
             />
           </div>

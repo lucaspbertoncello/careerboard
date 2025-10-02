@@ -1,8 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import toast from "react-hot-toast";
-import { getErrorMessage } from "@/app/utils/get-error-message";
 import { useAuth } from "@/app/hooks/auth/use-auth";
 import { useRegister } from "@/app/hooks/auth/use-register";
 
@@ -33,13 +31,8 @@ export function useRegisterForm() {
   const { signin } = useAuth();
 
   const handleSubmit = hookFormSubmit(async (data) => {
-    try {
-      const { accessToken } = await mutateAsync(data);
-      signin(accessToken);
-      toast.success("Account created successfuly");
-    } catch (error) {
-      toast.error(getErrorMessage(error));
-    }
+    const { accessToken } = await mutateAsync(data);
+    signin(accessToken);
   });
 
   return { register, handleSubmit, errors, isPending };

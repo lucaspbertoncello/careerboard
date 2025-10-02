@@ -19,5 +19,12 @@ export interface InterviewSummary {
   rejected: number;
 }
 
-export type CreateInterviewDto = Omit<Interview, "id" | "userId">;
-export type UpdateInterviewDto = Partial<Omit<Interview, "id" | "userId">>;
+export type CreateInterviewDto = Omit<
+  Interview,
+  "id" | "userId" | "formattedDate"
+>;
+
+// TODO: refactor this interface
+export type UpdateInterviewDto = Partial<
+  Omit<Interview, "id" | "userId" | "formattedDate">
+>;

@@ -13,7 +13,7 @@ export function NewInterviewModal() {
   const { isNewInterviewModalOpen, closeNewInterviewModal } =
     useNewInterviewModalController();
 
-  const { handleSubmit, register, errors, control } =
+  const { handleSubmit, register, errors, control, isCreatingInterview } =
     useNewInterviewModalForm();
 
   return (
@@ -24,7 +24,7 @@ export function NewInterviewModal() {
       description="Create a new interview record with company details, position and status"
     >
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Company Name */}
+        {/* company name */}
         <div className="space-y-2">
           <label htmlFor="companyName" className="text-sm font-medium">
             Company Name *
@@ -38,7 +38,7 @@ export function NewInterviewModal() {
           />
         </div>
 
-        {/* Role */}
+        {/* role */}
         <div className="space-y-2">
           <label htmlFor="role" className="text-sm font-medium">
             Role *
@@ -52,7 +52,7 @@ export function NewInterviewModal() {
           />
         </div>
 
-        {/* Salary */}
+        {/* salary */}
         <div className="space-y-2">
           <label htmlFor="salary" className="text-sm font-medium">
             Salary
@@ -71,7 +71,7 @@ export function NewInterviewModal() {
           />
         </div>
 
-        {/* Status */}
+        {/* status */}
         <div className="space-y-2">
           <label htmlFor="status" className="text-sm font-medium">
             Status *
@@ -92,7 +92,7 @@ export function NewInterviewModal() {
           />
         </div>
 
-        {/* Applied Date */}
+        {/* applied date */}
         <div className="space-y-2">
           <label className="text-sm font-medium">Applied Date *</label>
 
@@ -110,7 +110,7 @@ export function NewInterviewModal() {
           />
         </div>
 
-        {/* Description */}
+        {/* descriptions */}
         <div className="space-y-2">
           <label htmlFor="description" className="text-sm font-medium">
             Description (Optional)
@@ -123,9 +123,11 @@ export function NewInterviewModal() {
           />
         </div>
 
-        {/* Actions */}
+        {/* actions */}
         <div className="space-y-2 pt-4">
-          <Button type="submit">Create Interview</Button>
+          <Button isLoading={isCreatingInterview} type="submit">
+            Create Interview
+          </Button>
 
           <Button
             type="button"

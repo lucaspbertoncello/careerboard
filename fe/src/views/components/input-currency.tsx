@@ -16,8 +16,8 @@ export function InputCurrency({
   return (
     <div>
       <NumericFormat
-        thousandSeparator=","
-        decimalSeparator="."
+        thousandSeparator="."
+        decimalSeparator=","
         prefix="$"
         decimalScale={2}
         value={value}

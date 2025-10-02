@@ -13,6 +13,7 @@ export function useInterviews() {
   } = useQuery<Interview[]>({
     queryKey: ["interviews"],
     queryFn: () => interviewsService.getAllInterviews(),
+    // make a map on all interviews and return an object with the interview data, including a new prop formattedDate (15/01/2025)
     select: (interviews) => {
       return interviews.map((interview) => {
         return {

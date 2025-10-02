@@ -27,7 +27,7 @@ export function Interviews() {
     <div>
       {showContent && (
         <div>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <PageHeader
               title="Interviews"
               description="View and organize your interview history, upcoming sessions and results"

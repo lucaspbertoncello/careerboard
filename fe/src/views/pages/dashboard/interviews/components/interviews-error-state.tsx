@@ -3,13 +3,11 @@ import { Button } from "@/views/components/button";
 
 interface InterviewsErrorStateProps {
   onRetry: () => void;
-  errorMessage?: string;
   isRefetching?: boolean;
 }
 
 export function InterviewsErrorState({
   onRetry,
-  errorMessage,
   isRefetching = false,
 }: InterviewsErrorStateProps) {
   return (
@@ -33,13 +31,6 @@ export function InterviewsErrorState({
         <p className="text-muted-foreground mx-auto mt-3 max-w-md text-base">
           We couldn't load your interviews. This might be a temporary issue.
         </p>
-
-        {/* Error Message */}
-        {errorMessage && (
-          <div className="mx-auto mt-4 max-w-md rounded-lg border border-red-200 bg-red-50 p-3">
-            <p className="text-sm text-red-800">{errorMessage}</p>
-          </div>
-        )}
       </div>
 
       {/* retry button */}

@@ -7,7 +7,8 @@ export function useInterviews() {
     isFetching: isFetchingInterviews,
     isLoading: isLoadingInterviews,
     data: interviews,
-    error,
+    refetch: refetchInterviews,
+    error: hasError,
   } = useQuery<Interview[]>({
     queryKey: ["interviews"],
     queryFn: () => interviewsService.getAllInterviews(),
@@ -16,7 +17,8 @@ export function useInterviews() {
   return {
     isFetchingInterviews, // to spinners on refetch
     isLoadingInterviews, // to skeleton on initialLoading
-    interviews,
-    error,
+    interviews: interviews ?? [],
+    refetchInterviews,
+    hasError,
   };
 }

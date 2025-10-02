@@ -3,13 +3,19 @@ import { useDashboard } from "@/app/hooks/use-dashboard";
 
 export function useInterviewsController() {
   const { openNewInterviewModal } = useDashboard();
-  const { error, interviews, isFetchingInterviews, isLoadingInterviews } =
-    useInterviews();
+  const {
+    hasError,
+    interviews,
+    isFetchingInterviews,
+    isLoadingInterviews,
+    refetchInterviews,
+  } = useInterviews();
 
   return {
     openNewInterviewModal,
-    error,
-    interviews: interviews ?? [],
+    refetchInterviews,
+    hasError,
+    interviews,
     isFetchingInterviews,
     isLoadingInterviews,
   };

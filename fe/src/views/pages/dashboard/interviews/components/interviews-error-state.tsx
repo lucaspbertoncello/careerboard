@@ -3,13 +3,9 @@ import { Button } from "@/views/components/button";
 
 interface InterviewsErrorStateProps {
   onRetry: () => void;
-  isRefetching?: boolean;
 }
 
-export function InterviewsErrorState({
-  onRetry,
-  isRefetching = false,
-}: InterviewsErrorStateProps) {
+export function InterviewsErrorState({ onRetry }: InterviewsErrorStateProps) {
   return (
     <div className="mt-16 flex flex-col items-center justify-center px-4">
       {/* icon container */}
@@ -37,7 +33,6 @@ export function InterviewsErrorState({
       <div className="mt-8">
         <Button
           onClick={onRetry}
-          isLoading={isRefetching}
           size="lg"
           className="gap-2 shadow-md transition-all hover:shadow-lg"
         >

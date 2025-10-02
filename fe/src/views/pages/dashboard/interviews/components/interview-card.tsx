@@ -58,7 +58,7 @@ export function InterviewCard({ data }: IInterviewCard) {
 
         <div className="text-muted-foreground flex items-center gap-2">
           <Calendar className="h-4 w-4" />
-          <span>{data.appliedAt}</span>
+          <span>{data.formattedDate}</span>
         </div>
       </div>
     </div>

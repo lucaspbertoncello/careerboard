@@ -1,5 +1,6 @@
 import type { Interview } from "@/app/entities/Interview";
 import { interviewsService } from "@/app/services/interviews-service";
+import { formatDate } from "@/app/utils/format-date";
 import { useQuery } from "@tanstack/react-query";
 
 export function useInterviews() {
@@ -12,6 +13,14 @@ export function useInterviews() {
   } = useQuery<Interview[]>({
     queryKey: ["interviews"],
     queryFn: () => interviewsService.getAllInterviews(),
+    select: (interviews) => {
+      return interviews.map((interview) => {
+        return {
+          ...interview,
+          formattedDate: formatDate(new Date(interview.appliedAt)),
+        };
+      });
+    },
   });
 
   return {

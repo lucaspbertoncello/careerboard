@@ -6,6 +6,7 @@ export interface Interview {
   companyName: string;
   role: string;
   appliedAt: string;
+  formattedDate: string;
   salary?: number;
   status: InterviewStatus;
   description?: string;

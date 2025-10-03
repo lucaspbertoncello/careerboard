@@ -6,6 +6,7 @@ import { AuthGuard } from "./auth-guard";
 import { Home } from "@/views/pages/dashboard/home";
 import { DashboardLayout } from "@/views/layouts/dashboard-layout";
 import { Interviews } from "@/views/pages/dashboard/interviews";
+import { NotFound } from "@/views/pages/not-found";
 
 export function Router() {
   return (
@@ -24,6 +25,8 @@ export function Router() {
             <Route path="/dashboard/interviews" element={<Interviews />} />
           </Route>
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );

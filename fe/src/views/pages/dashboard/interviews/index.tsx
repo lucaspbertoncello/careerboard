@@ -57,7 +57,7 @@ export function Interviews() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {interviews.map((interview) => (
               <InterviewCard
-                onClick={() => openEditInterviewModal(interview.id)}
+                onClick={() => openEditInterviewModal(interview)}
                 key={interview.id}
                 data={interview}
               />

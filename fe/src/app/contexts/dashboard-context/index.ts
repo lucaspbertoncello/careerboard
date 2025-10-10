@@ -1,3 +1,4 @@
+import type { Interview } from "@/app/entities/Interview";
 import { createContext } from "react";
 
 interface IDashboardContext {
@@ -5,8 +6,8 @@ interface IDashboardContext {
   openNewInterviewModal(): void;
   closeNewInterviewModal(): void;
   isEditInterviewModalOpen: boolean;
-  interviewBeingEdited: string | null;
-  openEditInterviewModal(interviewId: string): void;
+  interviewBeingEdited: Interview | null;
+  openEditInterviewModal(interview: Interview): void;
   closeEditInterviewModal(): void;
 }
 

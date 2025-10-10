@@ -6,9 +6,12 @@ import { SelectInput } from "@/views/components/select-input";
 import { DatePickerInput } from "@/views/components/date-picker-input";
 import { Textarea } from "@/views/components/textarea";
 import { Button } from "@/views/components/button";
+import { useEditInterviewModalForm } from "./use-edit-interview-modal-form";
+import { Controller } from "react-hook-form";
 
 export function EditInterviewModal() {
   const { closeEditInterviewModal, isEditInterviewModalOpen } = useEditInterviewModalController();
+  const { handleSubmit, register, errors, control } = useEditInterviewModalForm();
 
   return (
     <Modal
@@ -17,14 +20,19 @@ export function EditInterviewModal() {
       isOpen={isEditInterviewModalOpen}
       onOpenChange={closeEditInterviewModal}
     >
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
         {/* company name */}
         <div className="space-y-2">
           <label htmlFor="companyName" className="text-sm font-medium">
             Company Name *
           </label>
 
-          <Input id="companyName" placeholder="e.g. Google, Microsoft, Apple" />
+          <Input
+            id="companyName"
+            placeholder="e.g. Google, Microsoft, Apple"
+            {...register("companyName")}
+            error={errors.companyName?.message}
+          />
         </div>
 
         {/* role */}
@@ -33,7 +41,12 @@ export function EditInterviewModal() {
             Role *
           </label>
 
-          <Input id="role" placeholder="e.g. Frontend Developer, Product Manager" />
+          <Input
+            id="role"
+            placeholder="e.g. Frontend Developer, Product Manager"
+            {...register("role")}
+            error={errors.role?.message}
+          />
         </div>
 
         {/* salary */}
@@ -42,7 +55,13 @@ export function EditInterviewModal() {
             Salary
           </label>
 
-          <InputCurrency onChange={() => {}} />
+          <Controller
+            name="salary"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <InputCurrency onChange={onChange} value={value} error={errors.salary?.message} />
+            )}
+          />
         </div>
 
         {/* status */}
@@ -51,9 +70,18 @@ export function EditInterviewModal() {
             Status *
           </label>
 
-          <SelectInput
-            triggerPlaceholder="Choose an status"
-            data={["APPROVED", "PENDING", "REJECTED"]}
+          <Controller
+            control={control}
+            name="status"
+            render={({ field: { onChange, value } }) => (
+              <SelectInput
+                triggerPlaceholder="Choose an status"
+                onChange={onChange}
+                value={value}
+                error={errors.status?.message}
+                data={["APPROVED", "PENDING", "REJECTED"]}
+              />
+            )}
           />
         </div>
 
@@ -61,7 +89,18 @@ export function EditInterviewModal() {
         <div className="space-y-2">
           <label className="text-sm font-medium">Applied Date *</label>
 
-          <DatePickerInput value={new Date()} onChange={() => {}} />
+          <Controller
+            control={control}
+            name="appliedAt"
+            defaultValue={new Date()}
+            render={({ field: { value, onChange } }) => (
+              <DatePickerInput
+                value={value}
+                onChange={onChange}
+                error={errors.appliedAt?.message}
+              />
+            )}
+          />
         </div>
 
         {/* descriptions */}
@@ -70,7 +109,11 @@ export function EditInterviewModal() {
             Description (Optional)
           </label>
 
-          <Textarea placeholder="Role responsibilities, benefits, interview notes..." />
+          <Textarea
+            placeholder="Role responsibilities, benefits, interview notes..."
+            {...register("description")}
+            error={errors.description?.message}
+          />
         </div>
 
         {/* actions */}

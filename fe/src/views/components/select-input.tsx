@@ -1,12 +1,6 @@
 import { capitalizeFirstLetter } from "@/app/utils/capitalize-first-letter";
 import { Error } from "./error";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./select";
 
 interface ISelectInputProps {
   error?: string;
@@ -32,7 +26,9 @@ export function SelectInput({
 
         <SelectContent>
           {data.map((item) => (
-            <SelectItem value={item}>{capitalizeFirstLetter(item)}</SelectItem>
+            <SelectItem key={item} value={item}>
+              {capitalizeFirstLetter(item)}
+            </SelectItem>
           ))}
         </SelectContent>
       </Select>

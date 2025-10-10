@@ -1,10 +1,11 @@
 import { useCallback, useState } from "react";
 import { DashboardContext } from "./index";
+import type { Interview } from "@/app/entities/Interview";
 
 export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [isNewInterviewModalOpen, setIsNewInterviewModalOpen] = useState<boolean>(false);
   const [isEditInterviewModalOpen, setIsEditInterviewModalOpen] = useState<boolean>(true);
-  const [interviewBeingEdited, setInterviewBeingEdited] = useState<string | null>(null);
+  const [interviewBeingEdited, setInterviewBeingEdited] = useState<Interview | null>(null);
 
   const openNewInterviewModal = useCallback(() => {
     setIsNewInterviewModalOpen(true);
@@ -14,8 +15,8 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     setIsNewInterviewModalOpen(false);
   }, []);
 
-  const openEditInterviewModal = useCallback((interviewId: string) => {
-    setInterviewBeingEdited(interviewId);
+  const openEditInterviewModal = useCallback((interview: Interview) => {
+    setInterviewBeingEdited(interview);
     setIsEditInterviewModalOpen(true);
   }, []);
 
@@ -23,6 +24,8 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     setInterviewBeingEdited(null);
     setIsEditInterviewModalOpen(false);
   }, []);
+
+  console.log("APP_INTERVIEW", interviewBeingEdited);
 
   return (
     <DashboardContext.Provider

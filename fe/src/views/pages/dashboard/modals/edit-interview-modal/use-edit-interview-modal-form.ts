@@ -1,5 +1,7 @@
 import { useDeleteInterview } from "@/app/hooks/interviews/use-delete-interview";
+import { useUpdateInterview } from "@/app/hooks/interviews/use-update-interview";
 import { useDashboard } from "@/app/hooks/use-dashboard";
+import { normalizeDateToUTC } from "@/app/utils/normalize-date-to-utc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -47,6 +49,7 @@ export function useEditInterviewModalForm() {
 
   const { interviewBeingEdited, closeEditInterviewModal } = useDashboard();
   const { mutateAsync: deleteInterview, isPending: isDeletingInterview } = useDeleteInterview();
+  const { mutateAsync: updateInterview, isPending: isUpdatingInterview } = useUpdateInterview();
 
   useEffect(() => {
     if (interviewBeingEdited) {
@@ -64,8 +67,14 @@ export function useEditInterviewModalForm() {
     }
   }, [interviewBeingEdited, reset]);
 
-  const handleSubmit = hookFormSubmit((data) => {
-    console.log(data);
+  const handleSubmit = hookFormSubmit(async (data) => {
+    const cleanSalary = data.salary?.replace(/[$,.]/g, "");
+    const formattedSalary = cleanSalary ? Number(cleanSalary) : undefined;
+    const formattedDate = normalizeDateToUTC(data.appliedAt);
+
+    const params = { ...data, appliedAt: formattedDate, salary: formattedSalary };
+    await updateInterview({ params, interviewId: interviewBeingEdited!.id });
+    closeEditInterviewModal();
   });
 
   async function handleDelete() {
@@ -73,5 +82,13 @@ export function useEditInterviewModalForm() {
     closeEditInterviewModal();
   }
 
-  return { register, handleSubmit, handleDelete, isDeletingInterview, errors, control };
+  return {
+    register,
+    handleSubmit,
+    handleDelete,
+    isDeletingInterview,
+    isUpdatingInterview,
+    errors,
+    control,
+  };
 }

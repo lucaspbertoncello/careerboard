@@ -24,6 +24,7 @@ import { Separator } from "../components/separator";
 import { Fab } from "../components/fab";
 import { NewInterviewModal } from "../pages/dashboard/modals/new-interview-modal";
 import { useAuth } from "@/app/hooks/auth/use-auth";
+import { EditInterviewModal } from "../pages/dashboard/modals/edit-interview-modal";
 
 const dashboardMenuItens = [
   {
@@ -95,6 +96,7 @@ export function DashboardLayout() {
 
           <Outlet />
           <NewInterviewModal />
+          <EditInterviewModal />
           <Fab />
         </main>
       </div>

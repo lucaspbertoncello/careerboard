@@ -15,6 +15,7 @@ export function Interviews() {
     hasError,
     isFetchingInterviews,
     refetchInterviews,
+    openEditInterviewModal,
   } = useInterviewsController();
 
   const hasInterviews = interviews.length > 0 && interviews;
@@ -55,7 +56,11 @@ export function Interviews() {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {interviews.map((interview) => (
-              <InterviewCard key={interview.id} data={interview} />
+              <InterviewCard
+                onClick={() => openEditInterviewModal(interview.id)}
+                key={interview.id}
+                data={interview}
+              />
             ))}
           </div>
         </div>
@@ -77,11 +82,7 @@ export function Interviews() {
           <div className="mt-6 mb-4 flex items-center gap-4">
             <div className="relative flex-1">
               <Search className="text-muted-foreground absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2" />
-              <Input
-                disabled
-                placeholder="Search companies or positions..."
-                className="pl-10"
-              />
+              <Input disabled placeholder="Search companies or positions..." className="pl-10" />
             </div>
           </div>
 

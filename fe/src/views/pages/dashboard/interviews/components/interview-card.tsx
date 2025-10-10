@@ -4,11 +4,12 @@ import { Calendar, DollarSign, Building2 } from "lucide-react";
 
 interface IInterviewCard {
   data: Interview;
+  onClick(): void;
 }
 
-export function InterviewCard({ data }: IInterviewCard) {
+export function InterviewCard({ data, onClick }: IInterviewCard) {
   return (
-    <div className="card cursor-pointer transition-shadow hover:shadow-md">
+    <div onClick={onClick} className="card cursor-pointer transition-shadow hover:shadow-md">
       <div className="flex items-start justify-between">
         {/* Company & Position */}
         <div className="flex-1">
@@ -19,9 +20,7 @@ export function InterviewCard({ data }: IInterviewCard) {
 
             <div>
               <h3 className="font-semibold">{data.role}</h3>
-              <p className="text-muted-foreground text-sm">
-                {data.companyName}
-              </p>
+              <p className="text-muted-foreground text-sm">{data.companyName}</p>
             </div>
           </div>
         </div>
@@ -42,9 +41,7 @@ export function InterviewCard({ data }: IInterviewCard) {
 
       {/* Description */}
       <div className="mt-3">
-        <p className="text-muted-foreground line-clamp-2 text-sm">
-          {data.description}
-        </p>
+        <p className="text-muted-foreground line-clamp-2 text-sm">{data.description}</p>
       </div>
 
       {/* Interview Details */}

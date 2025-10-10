@@ -25,8 +25,6 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     setIsEditInterviewModalOpen(false);
   }, []);
 
-  console.log("APP_INTERVIEW", interviewBeingEdited);
-
   return (
     <DashboardContext.Provider
       value={{

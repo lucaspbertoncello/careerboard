@@ -6,7 +6,7 @@ export function useDeleteInterview() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: interviewsService.deleteInterview,
+    mutationFn: (interviewId: string) => interviewsService.deleteInterview(interviewId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["interviews"] });
       queryClient.invalidateQueries({ queryKey: ["interviews", "summary"] });

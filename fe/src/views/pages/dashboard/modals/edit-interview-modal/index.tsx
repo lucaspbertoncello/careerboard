@@ -11,7 +11,8 @@ import { Controller } from "react-hook-form";
 
 export function EditInterviewModal() {
   const { closeEditInterviewModal, isEditInterviewModalOpen } = useEditInterviewModalController();
-  const { handleSubmit, register, errors, control } = useEditInterviewModalForm();
+  const { handleSubmit, register, handleDelete, isDeletingInterview, errors, control } =
+    useEditInterviewModalForm();
 
   return (
     <Modal
@@ -119,7 +120,12 @@ export function EditInterviewModal() {
         {/* actions */}
         <div className="space-y-2 pt-4">
           <Button type="submit">Update Interview</Button>
-          <Button variant="destructive" type="button">
+          <Button
+            variant="destructive"
+            type="button"
+            onClick={handleDelete}
+            isLoading={isDeletingInterview}
+          >
             Delete Interview
           </Button>
 

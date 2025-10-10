@@ -1,3 +1,4 @@
+import { useDeleteInterview } from "@/app/hooks/interviews/use-delete-interview";
 import { useDashboard } from "@/app/hooks/use-dashboard";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
@@ -44,7 +45,8 @@ export function useEditInterviewModalForm() {
     resolver: zodResolver(schema),
   });
 
-  const { interviewBeingEdited } = useDashboard();
+  const { interviewBeingEdited, closeEditInterviewModal } = useDashboard();
+  const { mutateAsync: deleteInterview, isPending: isDeletingInterview } = useDeleteInterview();
 
   useEffect(() => {
     if (interviewBeingEdited) {
@@ -66,5 +68,10 @@ export function useEditInterviewModalForm() {
     console.log(data);
   });
 
-  return { register, handleSubmit, errors, control };
+  async function handleDelete() {
+    await deleteInterview(interviewBeingEdited!.id);
+    closeEditInterviewModal();
+  }
+
+  return { register, handleSubmit, handleDelete, isDeletingInterview, errors, control };
 }

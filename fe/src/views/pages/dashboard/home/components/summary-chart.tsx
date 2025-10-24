@@ -1,3 +1,4 @@
+import type { CurrentYearInterviews } from "@/app/entities/Interview";
 import {
   ChartContainer,
   ChartTooltip,
@@ -26,16 +27,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-interface ChartData {
-  month: string;
-  total: number;
-  approved: number;
-  rejected: number;
-  pending: number;
-}
-
 interface SummaryChartProps {
-  chartData: ChartData[];
+  chartData: CurrentYearInterviews[];
 }
 
 export function SummaryChart({ chartData }: SummaryChartProps) {
@@ -57,11 +50,7 @@ export function SummaryChart({ chartData }: SummaryChartProps) {
           <defs>
             <linearGradient id="fillTotal" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.8} />
-              <stop
-                offset="95%"
-                stopColor="hsl(var(--primary))"
-                stopOpacity={0.1}
-              />
+              <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1} />
             </linearGradient>
           </defs>
 
@@ -79,10 +68,7 @@ export function SummaryChart({ chartData }: SummaryChartProps) {
             tickMargin={8}
             tick={{ fontSize: 12, fill: "var(--muted-foreground)" }}
           />
-          <ChartTooltip
-            cursor={false}
-            content={<ChartTooltipContent indicator="dot" />}
-          />
+          <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
           <Area
             dataKey="total"
             type="natural"
@@ -121,31 +107,19 @@ export function SummaryChart({ chartData }: SummaryChartProps) {
       {/* legend */}
       <div className="mt-4 flex justify-center gap-6">
         <div className="flex items-center gap-2">
-          <div
-            className="h-3 w-3 rounded-full"
-            style={{ backgroundColor: "var(--chart-1)" }}
-          />
+          <div className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--chart-1)" }} />
           <span className="text-muted-foreground text-sm">Total</span>
         </div>
         <div className="flex items-center gap-2">
-          <div
-            className="h-3 w-3 rounded-full"
-            style={{ backgroundColor: "var(--chart-2)" }}
-          />
+          <div className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--chart-2)" }} />
           <span className="text-muted-foreground text-sm">Approved</span>
         </div>
         <div className="flex items-center gap-2">
-          <div
-            className="h-3 w-3 rounded-full"
-            style={{ backgroundColor: "var(--chart-3)" }}
-          />
+          <div className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--chart-3)" }} />
           <span className="text-muted-foreground text-sm">Rejected</span>
         </div>
         <div className="flex items-center gap-2">
-          <div
-            className="h-3 w-3 rounded-full"
-            style={{ backgroundColor: "var(--chart-4)" }}
-          />
+          <div className="h-3 w-3 rounded-full" style={{ backgroundColor: "var(--chart-4)" }} />
           <span className="text-muted-foreground text-sm">Pending</span>
         </div>
       </div>

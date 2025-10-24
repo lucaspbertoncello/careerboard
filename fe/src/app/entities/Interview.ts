@@ -12,19 +12,25 @@ export interface Interview {
   description?: string;
 }
 
-export interface InterviewSummary {
-  total: number;
+export interface CurrentYearInterviews {
+  month: string;
   approved: number;
-  pending: number;
   rejected: number;
+  pending: number;
 }
 
-export type CreateInterviewDto = Omit<
-  Interview,
-  "id" | "userId" | "formattedDate"
->;
+export interface InterviewSummary {
+  interviewsStats: {
+    total: number;
+    approved: number;
+    pending: number;
+    rejected: number;
+  };
+  recentInterviews: Interview[];
+  currentYearInterviews: CurrentYearInterviews[];
+}
+
+export type CreateInterviewDto = Omit<Interview, "id" | "userId" | "formattedDate">;
 
 // TODO: refactor this interface
-export type UpdateInterviewDto = Partial<
-  Omit<Interview, "id" | "userId" | "formattedDate">
->;
+export type UpdateInterviewDto = Partial<Omit<Interview, "id" | "userId" | "formattedDate">>;

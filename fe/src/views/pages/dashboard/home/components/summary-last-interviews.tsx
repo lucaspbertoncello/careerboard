@@ -1,5 +1,6 @@
 import type { Interview } from "@/app/entities/Interview";
 import { capitalizeFirstLetter } from "@/app/utils/capitalize-first-letter";
+import { formatDate } from "@/app/utils/format-date";
 import {
   Table,
   TableBody,
@@ -13,9 +14,7 @@ interface SummaryLastInterviewsProps {
   lastInterviews: Interview[];
 }
 
-export function SummaryLastInterviews({
-  lastInterviews,
-}: SummaryLastInterviewsProps) {
+export function SummaryLastInterviews({ lastInterviews }: SummaryLastInterviewsProps) {
   return (
     <div className="card">
       <h1 className="mb-4 font-semibold">Your last 3 interviews</h1>
@@ -32,19 +31,15 @@ export function SummaryLastInterviews({
         </TableHeader>
 
         <TableBody>
-          {lastInterviews.map((interview) => (
+          {lastInterviews?.map((interview) => (
             <TableRow key={interview.id}>
-              <TableCell className="font-medium">
-                {interview.companyName}
-              </TableCell>
+              <TableCell className="font-medium">{interview.companyName}</TableCell>
 
               <TableCell>{interview.role}</TableCell>
 
-              <TableCell>
-                {new Date(interview.appliedAt).toLocaleDateString()}
-              </TableCell>
+              <TableCell>{formatDate(new Date(interview.appliedAt))}</TableCell>
 
-              <TableCell>{interview.salary}</TableCell>
+              <TableCell>{interview.salary?.toLocaleString()}</TableCell>
 
               <TableCell>
                 <span

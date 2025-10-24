@@ -1,11 +1,13 @@
 import { AlertTriangle, RefreshCw, TrendingDown, Database } from "lucide-react";
 import { Button } from "@/views/components/button";
+import type { ButtonHTMLAttributes } from "react";
 
-interface HomeErrorStateProps {
+interface HomeErrorStateProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   onRetry: () => void;
+  isLoading: boolean;
 }
 
-export function HomeErrorState({ onRetry }: HomeErrorStateProps) {
+export function HomeErrorState({ onRetry, isLoading, ...props }: HomeErrorStateProps) {
   return (
     <div className="mt-16 flex flex-col items-center justify-center px-4">
       {/* icon container */}
@@ -20,12 +22,10 @@ export function HomeErrorState({ onRetry }: HomeErrorStateProps) {
 
       {/* content */}
       <div className="mt-10 text-center">
-        <h2 className="text-3xl font-bold tracking-tight">
-          Unable to Load Dashboard
-        </h2>
+        <h2 className="text-3xl font-bold tracking-tight">Unable to Load Dashboard</h2>
         <p className="text-muted-foreground mx-auto mt-4 max-w-lg text-base">
-          We're having trouble loading your interview statistics. This could be
-          a temporary connection issue or our servers might be down.
+          We're having trouble loading your interview statistics. This could be a temporary
+          connection issue or our servers might be down.
         </p>
       </div>
 
@@ -35,6 +35,8 @@ export function HomeErrorState({ onRetry }: HomeErrorStateProps) {
           onClick={onRetry}
           size="lg"
           className="gap-2 px-8 shadow-lg transition-all"
+          isLoading={isLoading}
+          {...props}
         >
           <RefreshCw className="h-5 w-5" />
           Reload Dashboard

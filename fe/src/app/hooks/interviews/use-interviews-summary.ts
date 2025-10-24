@@ -7,6 +7,7 @@ export function useInterviewsSummary() {
     isFetching: isFetchingInterviewsSummary,
     isLoading: isLoadingInterviewsSummary,
     data: interviewsSummary,
+    refetch: refetchInterviewsSummary,
     error,
   } = useQuery<InterviewSummary>({
     queryKey: ["interviews", "summary"],
@@ -17,6 +18,7 @@ export function useInterviewsSummary() {
     isFetchingInterviewsSummary, // to spinners on refetch
     isLoadingInterviewsSummary, // to skeleton on initialLoading
     interviewsSummary,
+    refetchInterviewsSummary,
     error,
   };
 }

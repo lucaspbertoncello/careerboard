@@ -4,7 +4,7 @@ import type { Interview } from "@/app/entities/Interview";
 
 export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [isNewInterviewModalOpen, setIsNewInterviewModalOpen] = useState<boolean>(false);
-  const [isEditInterviewModalOpen, setIsEditInterviewModalOpen] = useState<boolean>(true);
+  const [isEditInterviewModalOpen, setIsEditInterviewModalOpen] = useState<boolean>(false);
   const [interviewBeingEdited, setInterviewBeingEdited] = useState<Interview | null>(null);
 
   const openNewInterviewModal = useCallback(() => {

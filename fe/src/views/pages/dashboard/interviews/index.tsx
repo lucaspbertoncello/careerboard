@@ -6,7 +6,7 @@ import { Button } from "@/views/components/button";
 import { useInterviewsController } from "./use-interviews-controller";
 import { InterviewsEmptyState } from "./components/interviews-empty-state";
 import { InterviewsErrorState } from "./components/interviews-error-state";
-import { InterviewCardSkeleton } from "./components/interview-card-skeleton";
+import { InterviewCardSkeleton } from "./skeleton";
 
 export function Interviews() {
   const {
